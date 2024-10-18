@@ -1,0 +1,72 @@
+/* src/pages/Progress.module.css */
+.progressPage {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin-top: -40px;
+  padding-top: 80px;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #007bff;
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.progressGraph {
+  margin-top: 20px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.table tr:hover {
+  background-color: #f8f8f8;
+}
+
+/* Flexbox to display the graphs side by side */
+.graphsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.graphWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 48%;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .graphWrapper {
+    max-width: 100%;
+  }
+}

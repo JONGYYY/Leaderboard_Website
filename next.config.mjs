@@ -3,4 +3,8 @@ const nextConfig = {
   reactStrictMode: true,
 };
 
+node_modules
+.next
+.env
+
 export default nextConfig;

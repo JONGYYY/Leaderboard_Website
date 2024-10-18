@@ -1,0 +1,39 @@
+/* src/components/StreakLevel.module.css */
+.streakLevelContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #ddd;
+  width: 100%;
+  position: sticky; 
+  top: 80px; 
+  z-index: 999; 
+}
+
+.streakInfo p, .levelInfo p {
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+  color: #333;
+  margin: 0;
+}
+
+.levelInfo {
+  text-align: right;
+}
+
+.progressBar {
+  width: 200px;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-top: 5px;
+}
+
+.progress {
+  height: 100%;
+  background-color: #007bff;
+  transition: width 0.3s ease-in-out;
+}

@@ -1,0 +1,132 @@
+/* src/pages/Activities.module.css */
+.activitiesPage {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin-top: -40px;
+  padding-top: 80px;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #007bff;
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.submissionForm {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.submissionForm label {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Add styles for textarea */
+.submissionForm textarea,
+.adminControls textarea {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  resize: vertical;
+}
+
+/* Style for select dropdown */
+.submissionForm select {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+}
+
+/* Adjustments for file input */
+.submissionForm input[type='file'] {
+  padding: 5px 0;
+}
+
+
+.submitBtn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.submitBtn:hover {
+  background-color: #0056b3;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.table tr:hover {
+  background-color: #f8f8f8;
+}
+
+.editBtn, .removeBtn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-right: 10px;
+}
+
+.editBtn:hover {
+  background-color: #0056b3;
+}
+
+.removeBtn:hover {
+  background-color: #ff4444;
+}
+
+.adminControls {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.createBtn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.createBtn:hover {
+  background-color: #218838;
+}

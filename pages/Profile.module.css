@@ -1,0 +1,91 @@
+/* src/pages/Profile.module.css */
+.profilePage {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin-top: -34px; 
+  padding-top: 80px;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #007bff;
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.card {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.profilePicture {
+  border-radius: 50%;
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+}
+
+.basicInfo {
+  font-size: 1.2rem;
+}
+
+.cardTitle {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.pointsOverview {
+  font-size: 1.1rem;
+}
+
+.activitiesTable {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.activitiesTable th, .activitiesTable td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.activitiesTable th {
+  background-color: #f1f1f1;
+}
+
+.activitiesTable tr:hover {
+  background-color: #f8f8f8;
+}
+
+/* Flexbox to display the graphs side by side */
+.graphsContainer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.graphWrapper {
+  flex: 1;
+  min-width: 0;
+  max-width: 48%;
+  padding: 10px;
+}
+
+@media (max-width: 768px) {
+  .graphWrapper {
+    max-width: 100%;
+  }
+}

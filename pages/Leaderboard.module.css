@@ -1,0 +1,48 @@
+/* src/pages/Leaderboard.module.css */
+.leaderboardPage {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  margin-top: -40px;
+  padding-top: 80px;
+}
+
+.pageTitle {
+  text-align: center;
+  color: #007bff;
+  font-size: 3rem;
+  margin-bottom: 30px;
+}
+
+.leaderboardSection {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: #007bff;
+  margin-bottom: 15px;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th, .table td {
+  padding: 12px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+.table th {
+  background-color: #f1f1f1;
+}
+
+.table tr:hover {
+  background-color: #f8f8f8;
+}
