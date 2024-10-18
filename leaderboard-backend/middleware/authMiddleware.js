@@ -1,19 +1,33 @@
-const jwt = require('jsonwebtoken');
+import jwt from 'jsonwebtoken';
 
-const authMiddleware = (req, res, next) => {
-  const token = req.header('Authorization').replace('Bearer ', '');
-
-  if (!token) {
-    return res.status(401).json({ msg: 'No token, authorization denied' });
-  }
-
+const authMiddleware = async (req, res, next) => {
   try {
+    const authHeader = req.headers.authorization;
+
+    if (!authHeader) {
+      return res.status(401).json({ msg: 'No token, authorization denied' });
+    }
+
+    const token = authHeader.replace('Bearer ', '');
+
+    // Verify the token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    req.user = decoded; // decoded contains the user's id and other info
-    next();
+
+    // Attach the decoded user to the request
+    req.user = decoded;
+    next(); // Continue to the next handler
   } catch (error) {
-    res.status(401).json({ msg: 'Token is not valid' });
+    console.error('Authentication error:', error.message);
+    return res.status(401).json({ msg: 'Token is not valid' });
   }
 };
 
-module.exports = authMiddleware;
+// Wrapper function to use middleware in Next.js API routes
+const withAuth = (handler) => async (req, res) => {
+  await authMiddleware(req, res, () => {
+    // If authentication passes, continue to the handler
+    return handler(req, res);
+  });
+};
+
+export default withAuth;

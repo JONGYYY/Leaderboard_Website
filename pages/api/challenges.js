@@ -1,7 +1,7 @@
 const express = require('express');
-const Challenge = require('../models/Challenge');
-const User = require('../models/User');
-const authMiddleware = require('../middleware/authMiddleware');
+const Challenge = require('./models/Challenge');
+const User = require('./models/User');
+const authMiddleware = require('../../leaderboard-backend/middleware/authMiddleware');
 const router = express.Router();
 const multer = require('multer');
 

@@ -48,8 +48,10 @@ const Profile = () => {
         });
 
         const data = await response.json();
+        console.log('Fetched user profile data:', data);
 
         if (!response.ok) {
+          setError(data.msg || 'Failed to fetch profile data');
           // Handle unauthorized access
           localStorage.removeItem('token'); // Remove token if invalid or expired
           router.push({
@@ -60,13 +62,14 @@ const Profile = () => {
         }
 
         setUserProfile(data); // Set profile data in state
-        calculateProgressions(data.completedChallenges); // Calculate point and time progression
+        calculateProgressions(data.completedChallenges || []); // Calculate point and time progression
 
         // Calculate the user's level based on total points
-        const levelInfo = calculateLevel(data.points);
+        const levelInfo = calculateLevel(data.points || 0);
         setLevelData(levelInfo);
       } catch (error) {
         console.error('Error fetching profile:', error);
+        setError('An error occurred while fetching your profile.');
         // Handle errors and redirect to login
         localStorage.removeItem('token'); // Clear token in case of error
         router.push({
@@ -79,7 +82,7 @@ const Profile = () => {
     };
 
     fetchProfile();
-  }, [router]);
+  }, []); // Empty dependency array to run only once
 
   // Function to calculate progressions
   const calculateProgressions = (completedChallenges) => {
@@ -101,8 +104,8 @@ const Profile = () => {
       // Skip challenges with null challengeId
       if (!challenge.challengeId) return;
 
-      totalPoints += challenge.pointsEarned;
-      totalTime += challenge.timeEarned / 60; // Convert minutes to hours
+      totalPoints += challenge.pointsEarned || 0;
+      totalTime += (challenge.timeEarned || 0) / 60; // Convert minutes to hours
       pointProgression.push(totalPoints);
       timeProgression.push(parseFloat(totalTime.toFixed(2))); // Limit to 2 decimal places
       labels.push(new Date(challenge.dateCompleted).toLocaleDateString());
@@ -144,7 +147,7 @@ const Profile = () => {
   // Function to format time as hours and minutes
   const formatTime = (timeInMinutes) => {
     const hours = Math.floor(timeInMinutes / 60);
-    const minutes = timeInMinutes % 60;
+    const minutes = Math.round(timeInMinutes % 60);
 
     let timeString = '';
     if (hours > 0) {
@@ -157,7 +160,7 @@ const Profile = () => {
     return timeString || '0 minutes';
   };
 
-  if (loading) {
+  if (loading || !userProfile) {
     return <div>Loading profile...</div>;
   }
 
@@ -166,7 +169,7 @@ const Profile = () => {
   }
 
   // Format totalTime
-  const totalTimeFormatted = formatTime(userProfile.totalTime);
+  const totalTimeFormatted = formatTime(userProfile.totalTime || 0);
 
   return (
     <div className={styles.profilePage}>
@@ -176,7 +179,7 @@ const Profile = () => {
       <div className={styles.card}>
         <div className={styles.profileInfo}>
           <Image
-            src={userProfile.profilePicture || 'https://via.placeholder.com/150'}
+            src={userProfile.profilePicture || '/default-profile.png'}
             alt="Profile"
             className={styles.profilePicture}
             width={150}
@@ -202,9 +205,9 @@ const Profile = () => {
       <div className={styles.card}>
         <h3 className={styles.cardTitle}>Overview</h3>
         <div className={styles.overview}>
-          <p>Total Points: {userProfile.points}</p>
+          <p>Total Points: {userProfile.points || 0}</p>
           <p>Total Time Earned: {totalTimeFormatted}</p>
-          <p>Badges Earned: {userProfile.badges.length}</p>
+          <p>Badges Earned: {userProfile.badges ? userProfile.badges.length : 0}</p>
         </div>
       </div>
 
@@ -252,19 +255,19 @@ const Profile = () => {
       {/* Completed Activities Section */}
       <div className={styles.card}>
         <h3 className={styles.cardTitle}>Completed Activities</h3>
-        <table className={styles.activitiesTable}>
-          <thead>
-            <tr>
-              <th>Activity</th>
-              <th>Status</th>
-              <th>Points Earned</th>
-              <th>Time Earned</th>
-              <th>Date Completed</th>
-            </tr>
-          </thead>
-          <tbody>
-            {userProfile.completedChallenges &&
-              userProfile.completedChallenges.map((activity, index) => (
+        {userProfile.completedChallenges && userProfile.completedChallenges.length > 0 ? (
+          <table className={styles.activitiesTable}>
+            <thead>
+              <tr>
+                <th>Activity</th>
+                <th>Status</th>
+                <th>Points Earned</th>
+                <th>Time Earned</th>
+                <th>Date Completed</th>
+              </tr>
+            </thead>
+            <tbody>
+              {userProfile.completedChallenges.map((activity, index) => (
                 <tr key={index}>
                   <td>
                     {activity.challengeId
@@ -277,8 +280,11 @@ const Profile = () => {
                   <td>{new Date(activity.dateCompleted).toLocaleDateString()}</td>
                 </tr>
               ))}
-          </tbody>
-        </table>
+            </tbody>
+          </table>
+        ) : (
+          <p>No activities completed yet.</p>
+        )}
       </div>
     </div>
   );

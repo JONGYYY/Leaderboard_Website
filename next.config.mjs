@@ -1,10 +1,7 @@
-/** @type {import('next').NextConfig} */
-const nextConfig = {
+// next.config.mjs
+export default {
   reactStrictMode: true,
+  images: {
+    domains: ['via.placeholder.com'], // Add the external domains here
+  },
 };
-
-node_modules
-.next
-.env
-
-export default nextConfig;
