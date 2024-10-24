@@ -46,7 +46,7 @@ const Progress = () => {
 
       try {
         // Fetch user profile data from the backend
-        const response = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/users/profile', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`, // Attach token in header
@@ -70,7 +70,7 @@ const Progress = () => {
         setTotalTime(data.totalTime || 0); // Set total time
 
         // Fetch current challenges separately from the challenges endpoint
-        const challengesRes = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges', {
+        const challengesRes = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/challenges`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         const challengesData = await challengesRes.json();

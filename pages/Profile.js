@@ -40,7 +40,7 @@ const Profile = () => {
       }
 
       try {
-        const response = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/users/profile', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`, // Attach token in header
