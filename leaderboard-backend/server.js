@@ -12,11 +12,26 @@ const app = express();
 // Connect to MongoDB
 connectDB();
 
-app.use(cors({
-    origin: 'http://localhost:3000', 
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE', 
-    credentials: true, 
-  }));
+// CORS configuration
+const allowedOrigins = [
+  'https://leaderboard-website-one.vercel.app', // Development URL
+  process.env.FRONTEND_URL, // Production URL (set this in your environment variables)
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      if (allowedOrigins.includes(origin) || !origin) {
+        // Allow requests with no origin (e.g., mobile apps or curl requests)
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+  })
+);
 
 // Middleware
 app.use(express.json());

@@ -40,13 +40,13 @@ const Activities = () => {
 
       try {
         // Fetch current challenges
-        const challengesRes = await fetch('http://localhost:5000/api/challenges', {
+        const challengesRes = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const challengesData = await challengesRes.json();
 
         // Fetch completed activities
-        const completedRes = await fetch('http://localhost:5000/api/challenges/completed', {
+        const completedRes = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges/completed', {
           headers: { Authorization: `Bearer ${token}` },
         });
         const completedData = await completedRes.json();
@@ -87,7 +87,7 @@ const Activities = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/challenges/submit', {
+      const res = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges/submit', {
         method: 'POST',
         headers: { Authorization: `Bearer ${token}` },
         body: formData,
@@ -125,7 +125,7 @@ const Activities = () => {
     }
 
     try {
-      const res = await fetch('http://localhost:5000/api/challenges/create', {
+      const res = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges/create', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -163,7 +163,7 @@ const Activities = () => {
   const handleRemoveChallenge = async (id) => {
     const token = localStorage.getItem('token');
     try {
-      const res = await fetch(`http://localhost:5000/api/challenges/delete/${id}`, {
+      const res = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/challenges/delete/${id}', {
         method: 'DELETE',
         headers: { Authorization: `Bearer ${token}` },
       });

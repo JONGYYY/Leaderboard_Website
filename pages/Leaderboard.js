@@ -12,7 +12,7 @@ const Leaderboard = () => {
   useEffect(() => {
     const fetchLeaderboard = async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/users/leaderboard', {
+        const res = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}:5000/api/users/leaderboard', {
           headers: {
             'Content-Type': 'application/json',
           },
