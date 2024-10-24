@@ -42,10 +42,9 @@ const StreakLevel = () => {
   }, []);
 
   const calculateWeeklyStreak = useCallback((completedChallenges) => {
-    // Get completion dates in UTC
     const completionDates = completedChallenges
       .map((challenge) => new Date(challenge.dateCompleted))
-      .sort((a, b) => b - a); // Sort descending
+      .sort((a, b) => b - a);
 
     if (completionDates.length === 0) {
       return 0;
@@ -59,15 +58,11 @@ const StreakLevel = () => {
       const challengeWeekStart = getStartOfWeek(challengeDate);
 
       if (challengeWeekStart.getTime() === currentWeekStart.getTime()) {
-        // Challenge completed this week
         streak++;
-        // Move to previous week
         currentWeekStart.setDate(currentWeekStart.getDate() - 7);
       } else if (challengeWeekStart.getTime() > currentWeekStart.getTime()) {
-        // Challenge completed in future week (should not happen)
         continue;
       } else {
-        // Challenge completed before the current streak
         break;
       }
     }
@@ -76,8 +71,8 @@ const StreakLevel = () => {
   }, []);
 
   const getStartOfWeek = (date) => {
-    const day = date.getDay(); // Day of week (0-6)
-    const diff = date.getDate() - day; // Adjust to Sunday
+    const day = date.getDay();
+    const diff = date.getDate() - day;
     return new Date(date.getFullYear(), date.getMonth(), diff);
   };
 
@@ -85,8 +80,16 @@ const StreakLevel = () => {
     const fetchUserData = async () => {
       const token = localStorage.getItem('token');
 
-      if (!token) {
+      // Only redirect to login if the current path is protected
+      const isProtectedRoute = !['/register', '/login'].includes(router.pathname);
+
+      if (!token && isProtectedRoute) {
         router.push('/login');
+        return;
+      }
+
+      if (!token) {
+        setLoading(false);
         return;
       }
 
@@ -102,26 +105,28 @@ const StreakLevel = () => {
 
         if (!response.ok) {
           localStorage.removeItem('token');
-          router.push('/login');
+          if (isProtectedRoute) {
+            router.push('/login');
+          }
           return;
         }
 
         const totalPoints = data.points || 0;
         const completedChallenges = data.completedChallenges || [];
 
-        // Calculate level based on totalPoints
         const levelData = calculateLevel(totalPoints);
         setLevel(levelData.level);
         setPointsInCurrentLevel(levelData.pointsInCurrentLevel);
         setPointsNeededForCurrentLevel(levelData.pointsNeededForCurrentLevel);
         setProgressPercentage(levelData.progressPercentage);
 
-        // Calculate weekly streak
         const streakCount = calculateWeeklyStreak(completedChallenges);
         setStreak(streakCount);
       } catch (error) {
         console.error('Error fetching user data:', error);
-        router.push('/login');
+        if (isProtectedRoute) {
+          router.push('/login');
+        }
       } finally {
         setLoading(false);
       }

@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run backend\" \"npm run frontend\"",
+    "backend": "cd leaderboard-backend && node server.js",
+    "frontend": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -39,6 +41,7 @@
     "vanta": "^0.5.24"
   },
   "devDependencies": {
+    "concurrently": "^9.0.1",
     "eslint": "^8",
     "eslint-config-next": "^14.2.14",
     "postcss": "^8",
