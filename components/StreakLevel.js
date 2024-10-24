@@ -94,7 +94,8 @@ const StreakLevel = () => {
       }
 
       try {
-        const response = await fetch('${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile', {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_BASE_URL}/api/users/profile`, {
+        //const response = await fetch('http://localhost:5000/api/users/profile', {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,
