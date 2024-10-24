@@ -11,7 +11,7 @@ const Activities = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
   const router = useRouter();
-
+//
   // State for submission form
   const [selectedChallenge, setSelectedChallenge] = useState('');
   const [submissionLink, setSubmissionLink] = useState('');
